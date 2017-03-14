@@ -1,0 +1,210 @@
+
+{% extends "base.html" %}
+
+    {% block content %}
+        {% load staticfiles %}
+         <div class="row carousel-block">
+                <!--------------carousel block starts------------------------------------------------------------>
+                <div id="carousel2" class="carousel slide carousel-fade" data-ride="carousel">
+                    <!------------------Wrapper for slides-->
+                    <div class="carousel-inner caption-animate">
+                        <!----------------------side effects-->
+                        <img class="effects-left img-responsive" src='{% static "/img/left-side-effects.png"%}' />
+                        <img class="effects-right img-responsive" src='{% static "/img/right-side-effects.png"%}' />
+                        <!-----------------------first slide-->
+                        {% for c in instance %}
+                            <div class="item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ c.image.url }}" alt="{{ c.name_alt }}" />
+                            <div class="carousel-caption {{ c.slider_fading_type }}">
+                                <h2>{{ c.slider_title }}</h2>
+                                <h3>{{ c.slider_caption }}</h3>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-------------------indicators-->
+                    <ol class="carousel-indicators">
+                        {% for c in instance %}
+                            <li data-target="#carousel2" data-slide-to="{{ c.data_slide_to }}" class="{% if forloop.first %}active{% endif %}">
+                                <a href="#">{{ c.indicator_name }}</a>
+                                <img src="{{ c.image.url }}" alt="{{ c.name_alt }}" />
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                <!---------------carousel block ends------------------------------------------------------------->
+                <div class="row pa-row">
+                    <!------------------photo and accordion starts----------------------------------------------->
+                    <div class="col-md-8" id="LeftSide">
+                        <div class="row">
+                            <!--------------------------latest rolling header -->
+                            <div class="pa-header-title">
+                                <h3 class="pa-heading">Latest Rolling</h3>
+                            </div>
+                             <!---------------------------owl carousel block starts------------------------------------------->
+                            <div class="owl-carousel" id="inner-body">
+                                {% for o in owl %}
+                                <div class="inner-img">
+                                    <img class="img-responsive" src="{{ o.image.url }}" alt="{{ o.name_alt }}">
+                                    <div class="ovrly"></div>
+                                    <div class="buttons">
+                                        <a href="#" class="fa fa-link"></a>
+                                        <a href="#" class="fa fa-eye"></a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!--------------------------owl carousel block ends---------------------------------------------->
+                            <!--------------------------In the mix header-->
+                            <div class="pa-header-title">
+                                <h3 class="pa-heading">In The Mix</h3>
+                            </div>
+                            <!--------------------------accordion blocks starts---------------------------------------------->
+                            <div id="inner-body">
+                                <div class="accordion-wrapper">
+                                    <div id="accordion1" class="panel-group">
+                                        <!-- first accordion------------------------------------------------->
+                                        <div class="panel panel-default">
+                                            <!--head------------------------------------------------------------->
+                                            <div class="head-1">
+                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseOne1">
+                                                    <h1 class="panel-title">New Content for download</h1>
+                                                </div>
+                                            </div>
+                                            <!--body------------------------------------------------------------->
+                                            <div id="collapseOne1" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    {% for ac1 in acc1 %}
+                                                        <div class="col-md-4 acc-new-dw-box">
+                                                            <div class="row">
+                                                                <img src="{{ ac1.image.url }}" alt="{{ ac1.name }}" id="acc-inner-img" class="pull-left">
+                                                                <div class="col-md-8">
+                                                                    <h3>{{ ac1.acc1_title }}</h3>
+                                                                    <p>{{ ac1.acc1_desc }}</p>
+                                                                    <div class="read-more">
+                                                                        <a href="{{ ac1.acc1_content_link }}"><span class="txt">Get it</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- second accordion------------------------------------------------->
+                                        <div class="panel panel-default">
+                                            <!--head ------------------------------------------------------------->
+                                            <div class="head-2">
+                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseTwo2">
+                                                    <h4 class="panel-title">Trending games</h4>
+                                                </div>
+                                            </div>
+                                            <!--body ------------------------------------------------------------->
+                                            <div id="collapseTwo2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <img class="img-responsive center-block" src="{{ acc2img }}" alt="{{ acc2imgalt }}"/>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <h3>{{ acc2title }}</h3>
+                                                            <p>{{ acc2desc }}</p>
+                                                            <div class="read-more">
+                                                                <a href="{{ acc2link }}"><span class="txt">Play it</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <!--third accordion--------------------------------------------------->
+                                        <div class="panel panel-default">
+                                            <!--head-------------------------------------------------------------->
+                                            <div class="head-3">
+                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseThree3">
+                                                    <h4 class="panel-title">Tips & Tricks</h4>
+                                                </div>
+                                            </div>
+                                            <!--body--------------------------------------------------------------->
+                                            <div id="collapseThree3" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        {% for ac3 in acc3 %}
+                                                            <div class="col-md-4" id="third-acco">
+                                                                <h3>{{ ac3.acc3_title }}</h3>
+                                                                <p>{{ ac3.acc3_desc }}</p>
+                                                                <div class="read-more">
+                                                                    <a href="{{ ac3.acc3_content_link }}"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--fourth accordion--------------------------------------------------->
+                                        <div class="panel panel-default">
+                                            <!--head--------------------------------------------------------------->
+                                            <div class="head-4">
+                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseFour4">
+                                                    <h4 class="panel-title">News From The Dev</h4>
+                                                </div>
+                                            </div>
+                                            <!--body--------------------------------------------------------------->
+                                            <div id="collapseFour4" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        {% for ac4 in acc4 %}
+                                                            <div class="col-md-6" id="third-acco">
+                                                                <h3>{{ ac4.acc4_title }}</h3>
+                                                                <p>{{ ac4.acc4_desc }}</p>
+                                                                <div class="read-more">
+                                                                    <a href="{{ ac4.acc4_content_link }}"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--------------------------accordion blocks ends---------------------------------------------->
+                        </div>
+                    </div>
+                    <!--                    Side bar starts -->
+                    <div class="col-md-4" id="RightSide">
+                        <!----------------------sidebar starts----------------------------------------------------------->
+                        <div class="sidebar-wrapper">
+                            <hr class="pa-break" />
+                            <h3 class="sidebar-heading">We are Social</h3>
+                            <!--                        social buttons-->
+                            <div class="social-div">
+                                <a href="https://twitter.com/PandorAstrum" class="icon-button twitter"><i class="fa fa-twitter"></i><span></span></a>
+                                <a href="https://www.facebook.com/pandorastrum/" class="icon-button facebook"><i class="fa fa-facebook"></i><span></span></a>
+                                <a href="#" class="icon-button twitch"><i class="fa fa-twitch"></i><span></span></a>
+                                <a href="https://www.youtube.com/channel/UCVo4ufhLz-P0__wnC7D_-kw" class="icon-button youtube"><i class="fa fa-youtube-play"></i><span></span></a>
+                            </div>
+                            <hr class="pa-break" />
+                            <h3 class="sidebar-heading">Upcoming Events</h3>
+                            <!--                            upcoming box-->
+                            <div class="upcoming-div">
+                                <img class="img-responsive center-block" src="assets/img/upcoming-events.png" alt="upcoming" />
+                                <div class="ovelay-screen"></div>
+                                <div class="buttons-show">
+                                    <a href="#" class="fa fa-send fa-overlay"></a>
+                                </div>
+                                <div class="col-md-12" id="clock"></div>
+                                <div id="units">
+                                    <span>Days</span>
+                                    <span>Hours</span>
+                                    <span>Minutes</span>
+                                    <span>Seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </div>
+    {% endblock content%}
